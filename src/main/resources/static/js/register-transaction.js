@@ -1,6 +1,3 @@
-//$(document).ready(function() {
-//    // on ready
-//})
 
 async function registerTransaction() {
 
@@ -16,7 +13,8 @@ async function registerTransaction() {
     method: 'POST',
     headers: {
       'Accept': 'application/json',
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${localStorage.token}`
     },
     body: JSON.stringify(data)
   });

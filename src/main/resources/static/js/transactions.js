@@ -9,7 +9,8 @@ async function loadTransactions() {
     method: 'GET',
     headers: {
       'Accept': 'application/json',
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${localStorage.token}`
     }
   });
   const transactions = await request.json();
@@ -17,15 +18,17 @@ async function loadTransactions() {
   let listHtml = '';
   for (let transaction of transactions) {
 
-    let btnDelete = '<a href="#" onclick="deleteTransaction(' + transaction.transactionId + ')" class="btn-delete"><i class="fa-solid fa-trash"></i></a>';
-    let btnEdit = '<a href="#" onclick="editTransaction(' + transaction.transactionId + ')" class="btn-edit" id="btn-edit"><i class="fa-solid fa-pen"></i></a>';
+    let deleteBtn;
+    localStorage.username == 'admin' ? deleteBtn = '<a href="#" onclick="deleteTransaction(' + transaction.transactionId + ')" class="btn-delete"><i class="fa-solid fa-trash"></i></a>' : deleteBtn = '';
+
+    let editBtn = '<a href="#" onclick="editTransaction(' + transaction.transactionId + ')" class="btn-edit" id="btn-edit"><i class="fa-solid fa-pen"></i></a>';
 
     let transactionHtml = '<tr><td>'
                       + transaction.transactionId + '</td><td>'
                       + transaction.date + '</td><td>'
                       + transaction.description + '</td><td>'
                       + transaction.value + '</td><td>'
-                      + btnDelete + btnEdit + '</td></tr>';
+                      + deleteBtn + editBtn + '</td></tr>';
 
     listHtml += transactionHtml;
   }
@@ -42,7 +45,8 @@ async function deleteTransaction(id) {
         method: 'DELETE',
         headers: {
           'Accept': 'application/json',
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.token}`
         }
     });
     location.reload();
@@ -54,5 +58,5 @@ async function editTransaction(id) {
 
 document.getElementById("new").addEventListener("click", function (event) {
   event.preventDefault();
-  window.location.href = 'form-transaction.html';
+  window.location.href = 'register-transaction.html';
 });

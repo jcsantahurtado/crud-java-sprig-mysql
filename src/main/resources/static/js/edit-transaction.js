@@ -12,7 +12,8 @@ async function getInfo() {
     method: 'GET',
     headers: {
       'Accept': 'application/json',
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${localStorage.token}`
     }
   });
 
@@ -43,7 +44,8 @@ async function updateTransaction() {
     method: 'PUT',
     headers: {
       'Accept': 'application/json',
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${localStorage.token}`
     },
     body: JSON.stringify(data)
   });
